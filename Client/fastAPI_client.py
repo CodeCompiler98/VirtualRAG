@@ -126,12 +126,9 @@ class VirtualRAGClient:
             print(f"\n{message.get('message', 'Disconnected')}")
             self.running = False
     
-    def encode_file(self, file_path: str) -> Optional[dict]:
+    def encode_file(self, file_path: str):
         """
         Read and base64 encode a file
-        
-        Returns:
-            Dict with filename and encoded content, or None on error
         """
         try:
             path = Path(file_path)
@@ -161,11 +158,7 @@ class VirtualRAGClient:
     
     async def send_query(self, query: str, file_paths: list = None):
         """
-        Send a query with optional document attachments
-        
-        Args:
-            query: User's question
-            file_paths: Optional list of file paths to attach
+        Send a query with optional document attachments (taking in questions and Optional list of file paths to attach)
         """
         # Prepare message
         message = {

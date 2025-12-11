@@ -44,7 +44,7 @@ class VectorStore:
         # Store document hashes to prevent duplicates
         self.document_hashes = self._load_document_hashes()
     
-    def _load_document_hashes(self) -> set:
+    def _load_document_hashes(self):
         """Load existing document hashes from metadata"""
         hashes = set()
         try:
@@ -56,7 +56,7 @@ class VectorStore:
             print(f"Error loading document hashes: {e}")
         return hashes
     
-    def _hash_content(self, content: str) -> str:
+    def _hash_content(self, content: str):
         """Generate SHA-256 hash of content"""
         return hashlib.sha256(content.encode('utf-8')).hexdigest()
     
@@ -65,16 +65,9 @@ class VectorStore:
         doc_hash = self._hash_content(content)
         return doc_hash in self.document_hashes
     
-    def add_document(self, file_path: str, filename: str) -> Dict[str, any]:
+    def add_document(self, file_path: str, filename: str):
         """
-        Add a document to the vector store
-        
-        Args:
-            file_path: Path to the document file
-            filename: Original filename
-            
-        Returns:
-            Dict with status and message
+        Add a document to the vector store (with the file path and original filename)
         """
         try:
             # Load document based on file type
@@ -133,16 +126,9 @@ class VectorStore:
         except Exception as e:
             return {"status": "error", "message": f"Error processing document: {str(e)}"}
     
-    def query(self, query_text: str, n_results: int = TOP_K_RESULTS) -> List[Dict[str, any]]:
+    def query(self, query_text: str, n_results: int = TOP_K_RESULTS):
         """
-        Query the vector store for relevant documents
-        
-        Args:
-            query_text: User's query
-            n_results: Number of results to return
-            
-        Returns:
-            List of relevant document chunks with metadata
+        Query the vector store for relevant documents (taking in the query and number of results and returning chunks)
         """
         try:
             # Check if collection is empty
@@ -176,7 +162,7 @@ class VectorStore:
             print(f"Error querying vector store: {e}")
             return []
     
-    def get_stats(self) -> Dict[str, any]:
+    def get_stats(self):
         """Get statistics about the vector store"""
         try:
             count = self.collection.count()

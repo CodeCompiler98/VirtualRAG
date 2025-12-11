@@ -55,13 +55,13 @@ class ChatOrchestrator:
         """
         Process a user query through the RAG + LLM pipeline
         
-        Args:
+        Arguement of function:
             query: User's question
             document_paths: Optional list of document paths to add to RAG
             document_filenames: Optional list of original filenames
             use_rag: Whether to use RAG for context retrieval
             
-        Yields:
+        Rerturns to me:
             Dictionaries with response chunks and metadata
         """
         # Step 1: Process any attached documents
@@ -131,7 +131,7 @@ class ChatOrchestrator:
             
             yield {"type": "llm_end"}
     
-    def get_stats(self) -> Dict[str, any]:
+    def get_stats(self):
         """Get statistics about the chat system"""
         return {
             "vector_store": self.vector_store.get_stats(),
