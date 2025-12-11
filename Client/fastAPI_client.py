@@ -253,6 +253,7 @@ class VirtualRAGClient:
                     parts = user_input[8:].strip().split(' ', 1)
                     if len(parts) == 2:
                         file_path, query = parts
+                        self.ready_for_input.clear()
                         await self.send_query(query, [file_path])
                     else:
                         print("Usage: /attach <file_path> <query>")
@@ -263,7 +264,8 @@ class VirtualRAGClient:
                     print("(Stats endpoint is HTTP-only, use browser or curl)")
                     continue
                 
-                # Regular query
+                # Regular query - block input immediately
+                self.ready_for_input.clear()
                 await self.send_query(user_input)
                 
             except KeyboardInterrupt:
